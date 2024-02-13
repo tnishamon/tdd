@@ -41,14 +41,12 @@ class CounterTest(TestCase):
     def test_update_a_counter(self):
       result = self.client.post('/counters/meep')
       self.assertEqual(result.status_code, status.HTTP_201_CREATED)
-      result2 = self.client.post('/counters/meep')
+      result = self.client.put('/counters/meep')
       self.assertEqual(result.status_code, status.HTTP_200_OK)
-      self.assertNotEqual(result, result2)
-
 
     def test_read_a_counter(self):
       result = self.client.post('/counters/beep')
       self.assertEqual(result.status_code, status.HTTP_201_CREATED)
-      result = self.client.post('/counters/beep')
+      result = self.client.put('/counters/beep')
       self.assertEqual(result.status_code, status.HTTP_200_OK)
 
