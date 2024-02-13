@@ -1,8 +1,9 @@
 from flask import Flask
+import status
 
 app = Flask(__name__)
 
-import status
+
 
 COUNTERS = {}
 
@@ -10,10 +11,12 @@ COUNTERS = {}
 # specify the variable in route <name>
 # let Flask know that the only methods that is allowed to called
 # on this function is "POST".
+
+
 @app.route('/counters/<name>', methods=['POST'])
 def create_counter(name):
     """Create a counter"""
-    app.logger.info(f"Request to create counter: {name}")
+    app.logger.info(f"Request to create counter:  {name}")
     global COUNTERS
     if name in COUNTERS:
         return {"Message":f"Counter {name} already exists"}, status.HTTP_409_CONFLICT
@@ -32,7 +35,7 @@ def update_counter(name):
 @app.route('/counters/<name>', methods=['GET'])
 def read_counter(name):
     """Create a counter"""
-    app.logger.info(f"Request to read counter: {name}")
+    app.logger.info(f"Request to read counter:  {name}")
     global COUNTERS
     return {name: COUNTERS[name]}, status.HTTP_200_OK
 
