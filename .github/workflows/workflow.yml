@@ -1,6 +1,4 @@
 name: CI workflow
-credentials: username: mona 
-password: ${{ secrets.docker_hub_password}}
 
 on: 
   push: 
