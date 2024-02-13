@@ -47,6 +47,16 @@ class CounterTest(TestCase):
     def test_read_a_counter(self):
       result = self.client.post('/counters/beep')
       self.assertEqual(result.status_code, status.HTTP_201_CREATED)
-      result = self.client.put('/counters/beep')
+      result = self.client.get('/counters/beep')
       self.assertEqual(result.status_code, status.HTTP_200_OK)
 
+    def test_delete_a_counter(self):
+      # Create a counter
+      result = self.client.post('/counters/zeep')
+      self.assertEqual(result.status_code, status.HTTP_201_CREATED)
+      # Delete that counter
+      result = self.client.delete('/counters/zeep')
+      self.assertEqual(result.status_code, status.HTTP_204_NO_CONTENT)
+      # Check exception if counter does not exist
+      result = self.client.delete('/counters/zeep')
+      self.assertEqual(result.status_code, status.HTTP_404_NOT_FOUND)
