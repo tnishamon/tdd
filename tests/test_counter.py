@@ -21,33 +21,34 @@ from src import status
 class CounterTest(TestCase):
     """Counter tests"""
 
-def test_create_a_counter(self):
-  """It should create a counter"""
-  client = app.test_client()
-  result = client.post('/counters/foo')
-  self.assertEqual(result.status_code, status.HTTP_201_CREATED)
+    def setUp(self):
+      self.client = app.test_client()
+
+    def test_create_a_counter(self):
+      """It should create a counter"""
+      client = app.test_client()
+      result = client.post('/counters/foo')
+      self.assertEqual(result.status_code, status.HTTP_201_CREATED)
 
 
-def test_duplicate_a_counter(self):
-  """It should return an error for duplicates"""
-  result = self.client.post('/counters/bar')
-  self.assertEqual(result.status_code, status.HTTP_201_CREATED)
-  result = self.client.post('/counters/bar')
-  self.assertEqual(result.status_code, status.HTTP_409_CONFLICT)
+    def test_duplicate_a_counter(self):
+      """It should return an error for duplicates"""
+      result = self.client.post('/counters/bar')
+      self.assertEqual(result.status_code, status.HTTP_201_CREATED)
+      result = self.client.post('/counters/bar')
+      self.assertEqual(result.status_code, status.HTTP_409_CONFLICT)
 
-def test_update_a_counter(self):
-  result = self.client.post('/counters/meep')
-  self.assertEqual(result.status_code, status.HTTP_201_CREATED)
-  result2 = self.client.post('/counters/meep')
-  self.assertEqual(result.status_code, status.HTTP_200_OK)
-  self.assertNotEqual(result, result2)
+    def test_update_a_counter(self):
+      result = self.client.post('/counters/meep')
+      self.assertEqual(result.status_code, status.HTTP_201_CREATED)
+      result2 = self.client.post('/counters/meep')
+      self.assertEqual(result.status_code, status.HTTP_200_OK)
+      self.assertNotEqual(result, result2)
 
 
-def test_read_a_counter(self):
-  result = self.client.post('/counters/beep')
-  self.assertEqual(result.status_code, status.HTTP_201_CREATED)
-  result = self.client.post('/counters/beep')
-  self.assertEqual(result.status_code, status.HTTP_200_OK)
+    def test_read_a_counter(self):
+      result = self.client.post('/counters/beep')
+      self.assertEqual(result.status_code, status.HTTP_201_CREATED)
+      result = self.client.post('/counters/beep')
+      self.assertEqual(result.status_code, status.HTTP_200_OK)
 
-def setUp(self):
-  self.client = app.test_client()
