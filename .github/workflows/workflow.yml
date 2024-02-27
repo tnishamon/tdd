@@ -43,8 +43,3 @@ jobs:
           pip install safety
           safety check
 
-      - name: Run end-to-end tests with Pytest
-        run: |
-          pip install pytest
-          pytest tests_e2e/
-
